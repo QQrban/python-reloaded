@@ -12,7 +12,7 @@ for line in lines:
     word = line.split(' ')
     i = 0
     while i < len(word):
-        if word[i] == "(low)":
+        if word[i].startswith("(low)"):
             if i > 0:
                 word[i - 1] = word[i - 1].lower()
                 del word[i]
@@ -66,8 +66,9 @@ for line in lines:
                         word[last_index-ind] = word[last_index-ind] + word[last_index]
                         break
                 del word[last_index]
-        elif word[i] == "a" and word[i+1].startswith(tuple(bb)):
-            word[i] = word[i] + "n"
+        elif word[i] == "A" or word[i] == "a":
+            if word[i + 1].startswith(tuple(bb)):
+                word[i] = word[i] + "n"
         elif word[i] == "(bin)":
             word[i-1] = str(int(word[i-1], 2))
             del word[i]
@@ -80,6 +81,5 @@ for line in lines:
     st = " ".join(word).split()
     st = " ".join(st)
     ready_string += st + "\n"
-
 with open("result.txt", "w") as file:
     file.write(ready_string)
